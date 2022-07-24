@@ -46,9 +46,4 @@ async function sendMail() {
   }
 }
 
-sendMail()
-  .then((result) => console.log('Email sent...', result))
-  .catch((error) => console.log(error.message));
-
-
 module.exports = {sendMail}
