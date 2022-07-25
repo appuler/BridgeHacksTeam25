@@ -32,7 +32,7 @@ async function sendMail() {
     });
 
     const mailOptions = {
-      from: `Dosage Tracker <{process.env.EMAIL}>`,
+      from: `Dosage Tracker <${process.env.EMAIL}>`,
       to: '9842929610@txt.att.net',
       //subject: 'Dosage Tracker',
       text: 'Hello from gmail email using API',
