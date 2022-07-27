@@ -9,11 +9,52 @@ async function connect() {mongoose.connect(uri)
 };
 
 const personSchema = new mongoose.Schema({
+  name: String,
+  username: String,
+  email: String,
+  phone: String,
+  password: String
 })
 
-function main() {
-  connect();
+const Person = mongoose.model("Person", personSchema);
+
+const medicineSchema = new mongoose.Schema({
+  username: String,
+  name: String,
+  dosage: Number,
+  time: Number,
+});
+
+const Medicine = new mongoose.model("Medicine", medicineSchema);
+
+async function createNewPerson(personData) {
+  const person = new Person(personData);
+  await person.save();
 };
 
-main();
+async function createMedicine(medicineData) {
+  const medicine = new Medicine(medicineData);
+  await medicine.save()
+}
+
+async function findPerson(user) {
+  person = await Person.findOne({username: user});
+  return person
+}
+
+async function findAllMedicine(user) {
+  medicineArray = await Medicine.find({username: user});
+  return medicineArray
+}
+
+async function main() {
+
+  connect();
+  await findPerson("Finer").then((value) => console.log(value.id));
+  findAllMedicine("Finer").then((value) => console.log(value));
+  
+  
+};
+
+module.exports = {connect, createNewPerson, createMedicine, findPerson, findAllMedicine}
 
