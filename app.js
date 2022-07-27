@@ -66,9 +66,13 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/app", (req, res) => {
-  // displays medication info with dosage
-  // has option to create new medication
-})
+  let personData = getPerson()
+  if (personData) {
+    let medicineList = database.findAllMedicine({username:personData.username})
+    res.render("app", medicineList);
+  } else {
+    res.redirect("/login");
+}});
 
 app.post("/app", (req, res) => {
   let personData = getPerson()
