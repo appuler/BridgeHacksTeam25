@@ -23,38 +23,47 @@ const medicineSchema = new mongoose.Schema({
   name: String,
   dosage: Number,
   time: Number,
+  timerSet: Boolean
 });
 
 const Medicine = new mongoose.model("Medicine", medicineSchema);
 
 async function createNewPerson(personData) {
-  const person = new Person(personData);
+  let person = new Person(personData);
   await person.save();
 };
 
 async function createMedicine(medicineData) {
-  const medicine = new Medicine(medicineData);
+  let medicine = new Medicine(medicineData);
   await medicine.save()
-}
+};
 
 async function findPerson(user) {
-  person = await Person.findOne({username: user});
+  let person = await Person.findOne({username: user});
   return person
-}
+};
 
-async function findAllMedicine(user) {
-  medicineArray = await Medicine.find({username: user});
+async function findAllMedicine(data) {
+  let medicineArray = await Medicine.find(data);
   return medicineArray
-}
+};
+
+async function updateMedicine(username, name, data) {
+  await Medicine.updateOne({username: username, name: name}, data);
+};
 
 async function main() {
 
   connect();
-  await findPerson("Finer").then((value) => console.log(value.id));
-  findAllMedicine("Finer").then((value) => console.log(value));
-  
+  let person = await findPerson("Finer");
+  // findAllMedicine("Finer").then((value) => console.log(value));
+
+  await Medicine.find().then((value) => console.log(value));
+  console.log(person)
+
   
 };
 
-module.exports = {connect, createNewPerson, createMedicine, findPerson, findAllMedicine}
+
+module.exports = {connect, createNewPerson, createMedicine, findPerson, findAllMedicine, updateMedicine}
 

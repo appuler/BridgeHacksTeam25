@@ -32,7 +32,7 @@ async function sendMail(text) {
     });
 
     const mailOptions = {
-      from: `Dosage Tracker <${process.env.EMAIL}>`,
+      from: `MedTrack <${process.env.EMAIL}>`,
       to: '9842929610@txt.att.net',
       //subject: 'Dosage Tracker',
       text: text,
@@ -45,5 +45,6 @@ async function sendMail(text) {
     return error;
   }
 }
+
 
 module.exports = {sendMail}
