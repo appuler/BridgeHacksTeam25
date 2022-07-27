@@ -15,7 +15,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-async function sendMail() {
+async function sendMail(text) {
   try {
     const accessToken = await oAuth2Client.getAccessToken();
 
@@ -35,8 +35,8 @@ async function sendMail() {
       from: `Dosage Tracker <${process.env.EMAIL}>`,
       to: '9842929610@txt.att.net',
       //subject: 'Dosage Tracker',
-      text: 'Hello from gmail email using API',
-      html: '<h1>Hello from gmail email using API</h1>',
+      text: text,
+      html: '<h1>' + text + '</h1>',
     };
 
     const result = await transport.sendMail(mailOptions);

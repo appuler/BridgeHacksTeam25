@@ -1,4 +1,13 @@
-const email = require("./js/email.js")
+const database = require("./js/database.js");
+const email = require("./js/email.js");
+const express = require("express");
 
-email.sendMail().then((result) => console.log('Email sent...', result))
-.catch((error) => console.log(error.message));
+const app = express();
+app.use(express.static("public"))
+app.set("view engine", "ejs")
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/pages/index.html")
+})
+
+app.listen(3000, () => console.log("Server Started on Port 3000"))
